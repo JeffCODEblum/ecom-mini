@@ -1,0 +1,24 @@
+.nav-link {
+    width: 150px;
+    display: flex;  
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+.nav-link:hover {
+    background-color: #efefef;
+}
+
+.nav-link a {
+    text-decoration: none;
+}
+
+.checked {
+    color: #ffaa22
+}
+
+button:hover {
+    background-color: #ccc;
+}

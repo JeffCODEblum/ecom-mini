@@ -25,6 +25,31 @@ const ReviewSchema = new mongoose.Schema({
 });
 const ReviewModel = new mongoose.model('ReviewModel', ReviewSchema);
 
+ReviewModel.find(function(err, docs) {
+    if (err) console.log(err);
+    if (docs.length == 0) {
+        const reviewModel = new ReviewModel({
+            email: 'foo@mail.com', 
+            name: 'foo manchu', 
+            comment: 'this is a pretty good itemz foo', 
+            timestamp: Date.now(), 
+            hidden: false, 
+            stars: 3
+        });
+        reviewModel.save();
+
+        const reviewModel2 = new ReviewModel({
+            email: 'foo@mail.com', 
+            name: 'bar me', 
+            comment: 'best one ever for realz', 
+            timestamp: Date.now(), 
+            hidden: false, 
+            stars: 4
+        });
+        reviewModel2.save();
+    }
+})
+
 const options = {
   key: fs.readFileSync('key.pem'),
   cert: fs.readFileSync('cert.pem')
@@ -73,9 +98,16 @@ app.post('/post-comment', (req, res) => {
 });
 
 app.get('/', function(req, res) {
-    res.writeHead(200);
-    res.end(detailPage());
-})
+    ReviewModel.find(function(err, docs) {
+        if (err) {
+            console.log(err);
+        }
+        if (docs) {
+            res.writeHead(200);
+            res.end(detailPage(docs));
+        }
+    });
+});
 
 https.createServer(options, app).listen(3000, function() {
     console.log("server running on port 3000");

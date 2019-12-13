@@ -1,4 +1,49 @@
-module.exports = function() {
+const Moment = require('moment');
+module.exports = function(docs) {
+    var reviewMarkup = '';
+    var reviewCount = 0;
+    var starTotal = 0;
+    for (var i = 0; i < docs.length; i++) {
+        var doc = docs[i];
+        if (!doc.hidden) {
+            starTotal += doc.stars;
+            reviewCount++;
+            var starMarkup = '';
+            var timestamp =  Moment(parseInt(doc.timestamp)).format('MMMM Do YYYY');
+            for (var j = 1; j < 6; j++) {
+                if (doc.stars >= j) {
+                    starMarkup += `<span class="fa fa-star checked"></span>`;
+                }
+                else {
+                    starMarkup += `<span class="fa fa-star"></span>`;
+                }
+            }
+            reviewMarkup += `
+                <hr>
+                <div><span style="color: #333; font-size: 1.2em;">${doc.name}</span> <span style="font-size: 0.8em">on ${timestamp}</span></div>
+                ${starMarkup}
+                <div style="color: #333;">${doc.comment}</div>
+            `;
+        }
+    }
+    var starAverage = starTotal / reviewCount;
+    starAverage = starAverage.toFixed(1);
+
+    var starMarkup = '';
+    for (var i = 1; i < 6; i++) {      
+        if (starAverage >= i) {
+            starMarkup += '<span class="fa fa-star checked"></span>';
+        }
+        else if (starAverage < i) {
+            if (starAverage <= i - 1) {
+                starMarkup += '';
+            }
+            else if (starAverage > i - 1) {
+                starMarkup += '<span class="fa fa-star-half checked"></span>'
+            }
+        }
+    }
+    
     var page = `
         <!doctype html>
         <html>
@@ -36,9 +81,8 @@ module.exports = function() {
                             </div>
                         </div>
                         <div style="margin-top: 10px; color: #333;">
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star-half checked"></span>
-                            <span style="font-size: 0.8em;">(4.5 / 5 based on 2 reviews)</span>
+                            ${starMarkup}
+                            <span style="font-size: 0.8em;">(${starAverage} / 5 based on ${reviewCount} reviews)</span>
                         </div>
                         <div style="font-size: 1.4em; color: #333; font-weight: bold;">Jeezy's</div>
                         <div style="display: flex; flex-direction: column; margin-top: 20px; justify-content: center;">
@@ -88,11 +132,7 @@ module.exports = function() {
                             </div>
                         </div>
                         <div style="margin-top: 30px; margin-bottom: 30px;">
-                            <hr>
-                            <div><span style="color: #333; font-size: 1.2em;">Harry Potter</span> <span style="font-size: 0.8em">on 12/12/2019</span></div>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                            <div style="color: #333;">This is a great product would buy again</div>
+                            ${reviewMarkup}
                         </div>
                     </div>
                 </div>

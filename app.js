@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const detailPage = require('./detail.js');
+const privacyPage = require('./privacy.js');
+const termsPage = require('./terms.js');
 const app = express();
 app.use(express.static('public'))
 app.use(bodyParser.json());
@@ -55,10 +57,6 @@ const options = {
   cert: fs.readFileSync('cert.pem')
 };
 
-app.post('/post-comment', function(req, res) {
-    res.sendStatus(200);
-});
-
 app.post('/post-comment', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
@@ -84,17 +82,29 @@ app.post('/post-comment', (req, res) => {
         stars: stars
     });
 
+    console.log('saving model');
     reviewModel.save((err, doc) => {
         if (err) {
             console.log(err);
             res.sendStatus(500);
         }
         if (doc) {
+            console.log("save success");
             res.send(true);
         }
         return;
     });
     return;
+});
+
+app.get('/privacy', function(req, res) {
+    res.writeHead(200);
+    res.end(privacyPage());
+});
+
+app.get('/terms', function(req, res) {
+    res.writeHead(200);
+    res.end(termsPage());
 });
 
 app.get('/', function(req, res) {

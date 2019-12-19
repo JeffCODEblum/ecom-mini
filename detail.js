@@ -1,4 +1,5 @@
 const Moment = require('moment');
+const Config = require('./config');
 module.exports = function(docs) {
     var reviewMarkup = '';
     var reviewCount = 0;
@@ -49,7 +50,7 @@ module.exports = function(docs) {
         <html>
             <head>
                 <meta charset="utf-8">
-                <title>Example App</title>
+                <title>${Config.pageTitle}</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -59,7 +60,7 @@ module.exports = function(docs) {
             </head>
             <body>
                 <div id="promo-bar" style="width: 100%; height: 30px; background-color: #000; color: white; display: flex; flex-direction: row; justify-content: center; align-items: center; letter-spacing: 3px; font-size: 0.8em;">
-                    25% off your first order
+                    ${Config.promoText}
                 </div>
                 <div id="nav-bar" style="display: flex; flex-direction: row; align-items: center; justify-content: flex-end; border-bottom: 1px solid #ccc; background-color: white; width: 100%; height: 60px;">
                     <div style="padding: 5px; font-size: 2em; color: #333;">
@@ -88,10 +89,10 @@ module.exports = function(docs) {
                         <div style="display: flex; flex-direction: column; margin-top: 20px; justify-content: center;">
                             <div style="text-align: center; color: #333;">
                                 <span style="font-size: 1em">
-                                    <s>$999.99</s>
+                                    <s>$${Config.comparePrice}</s>
                                 </span>
                                 <span style="font-size: 1.4em;">
-                                    <b>$699.99</b>
+                                    <b>$${Config.sellingPrice}</b>
                                 </span>
                             </div>
                             <div style="display: flex; justify-content: center; margin-top: 10px;">
@@ -99,7 +100,7 @@ module.exports = function(docs) {
                             </div>
                         </div>
                         <div style="color: #333; margin-top: 30px; text-align: center">
-                            These kicks are the freshest
+                            ${Config.productDescription}
                         </div>
                         <div style="color: #333; margin-top: 30px; font-weight: bold; font-size: 1.4em;">
                             Customer Reviews
@@ -136,7 +137,11 @@ module.exports = function(docs) {
                         </div>
                     </div>
                 </div>
-
+                <div style="background-color: black; width: 100%; height: 150px; color: #efefef">
+                    <div>Terms</div>
+                    <div>Privacy</div>
+                    <div>Copyright 2019 all rights reserved</div>
+                </div>
                 <script src="./index.js"></script>
             </body>
         </html>

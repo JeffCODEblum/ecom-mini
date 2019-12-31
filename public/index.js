@@ -121,3 +121,4 @@ var paymentForm = new SqPaymentForm({
         },
     }
   });
+  paymentForm.build();

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const detailPage = require('./detail.js');
 const privacyPage = require('./privacy.js');
+const page = require('./page.js');
 const termsPage = require('./terms.js');
 const app = express();
 app.use(express.static('public'))
@@ -99,22 +100,25 @@ app.post('/post-comment', (req, res) => {
 
 app.get('/privacy', function(req, res) {
     res.writeHead(200);
-    res.end(privacyPage());
+    res.end(page(privacyPage()));
 });
 
 app.get('/terms', function(req, res) {
     res.writeHead(200);
-    res.end(termsPage());
+    res.end(page(termsPage()));
 });
 
+console.log("SETTING UP GET");
 app.get('/', function(req, res) {
+    console.log("GET FIRED");
     ReviewModel.find(function(err, docs) {
         if (err) {
             console.log(err);
+            res.end(page(detailPage([])));
         }
         if (docs) {
             res.writeHead(200);
-            res.end(detailPage(docs));
+            res.end(page(detailPage(docs)));
         }
     });
 });

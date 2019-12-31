@@ -48,3 +48,77 @@ $("#comment-btn").click(function(e) {
         $('#review-success-div').show();
     });
 });
+
+var paymentForm = new SqPaymentForm({
+    applicationId: "REPLACE_WITH_APPLICATION_ID",
+    locationId: "REPLACE_WITH_LOCATION_ID",
+  
+    // Initialize Google Pay button ID
+    googlePay: {
+      elementId: 'sq-google-pay'
+    },
+    callbacks: {
+        methodsSupported: function (methods, unsupportedReason) {      
+            console.log(methods);
+            var googlePayBtn = document.getElementById('sq-google-pay');
+            // Only show the button if Google Pay on the Web is enabled
+            if (methods.googlePay === true) {
+                googlePayBtn.style.display = 'inline-block';
+            } else {
+                console.log(unsupportedReason);
+            }
+        },
+        cardNonceResponseReceived: function() {
+
+        },
+        createPaymentRequest: function () {
+            var paymentRequestJson = {
+                requestShippingAddress: true,
+                requestBillingInfo: true,
+                shippingContact: {
+                    familyName: "CUSTOMER LAST NAME",
+                    givenName: "CUSTOMER FIRST NAME",
+                    email: "mycustomer@example.com",
+                    country: "USA",
+                    region: "CA",
+                    city: "San Francisco",
+                    addressLines: ["1455 Market St #600"],
+                    postalCode: "94103",
+                    phone:"14255551212"
+                },
+                currencyCode: "USD",
+                countryCode: "US",
+                total: {
+                    label: "MERCHANT NAME",
+                    amount: "85.00",
+                    pending: false
+                },
+                lineItems: [
+                    {
+                        label: "Subtotal",
+                        amount: "60.00",
+                        pending: false
+                    },
+                    {
+                        label: "Shipping",
+                        amount: "19.50",
+                        pending: true
+                    },
+                    {
+                        label: "Tax",
+                        amount: "5.50",
+                        pending: false
+                    }
+                ],
+                shippingOptions: [
+                    {
+                        id: "1",
+                        label: "SHIPPING LABEL",
+                        amount: "SHIPPING COST"
+                    }
+                ]
+            };
+            return paymentRequestJson;
+        },
+    }
+  });

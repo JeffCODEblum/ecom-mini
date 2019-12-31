@@ -67,8 +67,17 @@ var paymentForm = new SqPaymentForm({
                 console.log(unsupportedReason);
             }
         },
-        cardNonceResponseReceived: function() {
-
+        cardNonceResponseReceived: function(errors, nonce, cardData) {
+            if (errors) {
+                // Log errors from nonce generation to the browser developer console.
+                console.error('Encountered errors:');
+                errors.forEach(function (error) {
+                    console.error('  ' + error.message);
+                });
+                alert('Encountered errors, check browser developer console for more details');
+                return;
+            }
+            alert(`The generated nonce is:\n${nonce}`);
         },
         createPaymentRequest: function () {
             var paymentRequestJson = {

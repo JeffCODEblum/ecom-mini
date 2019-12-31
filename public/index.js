@@ -50,8 +50,7 @@ $("#comment-btn").click(function(e) {
 });
 
 var paymentForm = new SqPaymentForm({
-    applicationId: "sq0idp-Hcdz3ZLE8uKBWQJIzzSnvw",
-    locationId: "USA",
+    applicationId: "sandbox-sq0idb-E12Nhkfh49gLtlSnpfuODw",
   
     // Initialize Google Pay button ID
     googlePay: {

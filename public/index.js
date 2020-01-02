@@ -129,3 +129,10 @@ function onGetCardNonce(event) {
 }
 
 paymentForm.build();
+
+var total = Config.sellingPrice;
+$("#qty-input").on("change", function(e) {
+    var qty = e.target.value;
+    total = (qty * Config.sellingPrice).toFixed(2);
+    $("#total-display").text('' + total);
+});

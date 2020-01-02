@@ -74,7 +74,7 @@ module.exports = function(docs) {
                     </span>
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <button class="btn btn-default" style="width: 132px; border: 1px solid #333; border-radius: 0px; color: #222;">Buy Now</button>
+                    <a href="/cart"><button class="btn btn-default" style="width: 132px; border: 1px solid #333; border-radius: 0px; color: #222;">Buy Now</button></a>
                 </div>
             </div>
             <div style="color: #333; margin-top: 30px; text-align: center">

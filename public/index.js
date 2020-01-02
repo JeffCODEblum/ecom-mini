@@ -49,85 +49,83 @@ $("#comment-btn").click(function(e) {
     });
 });
 
-var paymentForm = new SqPaymentForm({
+
+function postPayment(nonce) {
+    fetch('process-payment', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+                nonce: nonce
+            })
+        })
+        .catch(err => {
+            alert('Network error: ' + err);
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(errorInfo => Promise.reject(errorInfo));
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log(JSON.stringify(data));
+            alert('Payment complete successfully!\nCheck browser developer console for more details');
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Payment failed to complete!\nCheck browser developer console for more details');
+        });
+}
+
+const paymentForm = new SqPaymentForm({
     applicationId: "sandbox-sq0idb-E12Nhkfh49gLtlSnpfuODw",
-  
-    // Initialize Google Pay button ID
-    googlePay: {
-      elementId: 'sq-google-pay'
+    inputClass: 'sq-input',
+    autoBuild: false,
+    inputStyles: [{
+        fontSize: '16px',
+        lineHeight: '24px',
+        padding: '16px',
+        placeholderColor: '#a0a0a0',
+        backgroundColor: 'transparent',
+    }],
+    cardNumber: {
+        elementId: 'sq-card-number',
+        placeholder: 'Card Number'
+    },
+    cvv: {
+        elementId: 'sq-cvv',
+        placeholder: 'CVV'
+    },
+    expirationDate: {
+        elementId: 'sq-expiration-date',
+        placeholder: 'MM/YY'
+    },
+    postalCode: {
+        elementId: 'sq-postal-code',
+        placeholder: 'Postal'
     },
     callbacks: {
-        methodsSupported: function (methods, unsupportedReason) {      
-            console.log(methods);
-            var googlePayBtn = document.getElementById('sq-google-pay');
-            // Only show the button if Google Pay on the Web is enabled
-            if (methods.googlePay === true) {
-                googlePayBtn.style.display = 'inline-block';
-            } else {
-                console.log(unsupportedReason);
-            }
-        },
-        cardNonceResponseReceived: function(errors, nonce, cardData) {
+        cardNonceResponseReceived: function (errors, nonce, cardData) {
             if (errors) {
-                // Log errors from nonce generation to the browser developer console.
-                console.error('Encountered errors:');
-                errors.forEach(function (error) {
-                    console.error('  ' + error.message);
-                });
-                alert('Encountered errors, check browser developer console for more details');
+                console.log(errors);
                 return;
             }
-            alert(`The generated nonce is:\n${nonce}`);
-        },
-        createPaymentRequest: function () {
-            var paymentRequestJson = {
-                requestShippingAddress: true,
-                requestBillingInfo: true,
-                shippingContact: {
-                    familyName: "CUSTOMER LAST NAME",
-                    givenName: "CUSTOMER FIRST NAME",
-                    email: "mycustomer@example.com",
-                    country: "USA",
-                    region: "CA",
-                    city: "San Francisco",
-                    addressLines: ["1455 Market St #600"],
-                    postalCode: "94103",
-                    phone:"14255551212"
-                },
-                currencyCode: "USD",
-                countryCode: "US",
-                total: {
-                    label: "MERCHANT NAME",
-                    amount: "85.00",
-                    pending: false
-                },
-                lineItems: [
-                    {
-                        label: "Subtotal",
-                        amount: "60.00",
-                        pending: false
-                    },
-                    {
-                        label: "Shipping",
-                        amount: "19.50",
-                        pending: true
-                    },
-                    {
-                        label: "Tax",
-                        amount: "5.50",
-                        pending: false
-                    }
-                ],
-                shippingOptions: [
-                    {
-                        id: "1",
-                        label: "SHIPPING LABEL",
-                        amount: "SHIPPING COST"
-                    }
-                ]
-            };
-            return paymentRequestJson;
-        },
+            else {
+                console.log(nonce, cardData);
+                postPayment(nonce);
+            }
+        }
     }
-  });
-  paymentForm.build();
+});
+
+function onGetCardNonce(event) {
+    // Don't submit the form until SqPaymentForm returns with a nonce
+    event.preventDefault();
+    // Request a nonce from the SqPaymentForm object
+    paymentForm.requestCardNonce();
+}
+
+paymentForm.build();

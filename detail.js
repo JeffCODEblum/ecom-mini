@@ -63,7 +63,7 @@ module.exports = function(docs) {
                 ${starMarkup}
                 <span style="font-size: 0.8em;">(${starAverage} / 5 based on ${reviewCount} reviews)</span>
             </div>
-            <div style="font-size: 1.4em; color: #333; font-weight: bold;">Jeezy's</div>
+            <div style="font-size: 1.4em; color: #333; font-weight: bold;">${Config.productName}</div>
             <div style="display: flex; flex-direction: column; margin-top: 20px; justify-content: center;">
                 <div style="text-align: center; color: #333;">
                     <span style="font-size: 1em">
@@ -75,9 +75,6 @@ module.exports = function(docs) {
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
                     <button class="btn btn-default" style="width: 132px; border: 1px solid #333; border-radius: 0px; color: #222;">Buy Now</button>
-                </div>
-                <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <button id="sq-google-pay" class="button-google-pay"></button>
                 </div>
             </div>
             <div style="color: #333; margin-top: 30px; text-align: center">

@@ -1,4 +1,4 @@
-var stars;
+var stars = 5;
 
 $(".img-thmb").click(function(e) {
     e.preventDefault();
@@ -40,7 +40,7 @@ $("#comment-btn").click(function(e) {
 
     $.ajax({
         type: 'POST',
-        url: 'https://localhost:3000/post-comment',
+        url: 'https://localhost:443/post-comment',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(payload)
     }).done(function(data) {

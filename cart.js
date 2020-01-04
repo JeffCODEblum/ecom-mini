@@ -14,7 +14,7 @@ module.exports = function() {
                 <div style="width: 100px;">qty: <input id="qty-input" type="number" value="1" min="1" max="999" class="form-control" /></div>
             </div>
             <div style="margin-top: 10px color: #333; display: flex; justify-content: flex-end; flex-direction: row;">
-                <b>Total: $<span id="total-display">${Config.sellingPrice}</span></b>
+                <b>Total: $<span id="total-display" style="font-size: 1.2em">${Config.sellingPrice}</span></b>
             </div>
 
             <div style="margin-top: 30px; font-size: 1.4em; color: #333; font-weight: bold;">Shipping Information</div>
@@ -34,9 +34,15 @@ module.exports = function() {
                 <div class="third" id="sq-expiration-date"></div>
                 <div class="third" id="sq-cvv"></div>
                 <div class="third" id="sq-postal-code"></div>
-                <button id="sq-creditcard" class="button-credit-card" onclick="onGetCardNonce(event)">Purchase</button>
+                <button id="sq-creditcard" class="button-credit-card" style="background-color: #222; color: white;" onclick="onGetCardNonce(event)">Purchase</button>
             </div>
-            <div style="margin-top: 320px"></div>
+            <div style="font-size: 1.6em; color: #333; margin-top: 30px; display: flex; flex-direction: row; justify-content: center; align-items:center;">
+                <div style="padding: 15px;"><i class="fab fa-cc-visa"></i></div>
+                <div style="padding: 15px;"><i class="fab fa-cc-mastercard"></i></div>
+                <div style="padding: 15px;"><i class="fab fa-cc-discover"></i></div>
+                <div style="padding: 15px;"><i class="fab fa-cc-amex"></i></div>
+            </div>
+            <div style="margin-top: 220px"></div>
         </div>
     </div>
     `;

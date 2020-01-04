@@ -76,6 +76,8 @@ app.post('/post-comment', (req, res) => {
     const timestamp = Date.now() + '';
     const stars = req.body.stars;
 
+    console.log(name, email, comment, timestamp, stars);
+    
     if (!(name && email && comment && timestamp && stars)) {
         res.sendStatus(400);
         return;

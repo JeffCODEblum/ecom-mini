@@ -88,6 +88,9 @@ const paymentForm = new SqPaymentForm({
     applicationId: "sandbox-sq0idb-E12Nhkfh49gLtlSnpfuODw",
     inputClass: 'sq-input',
     autoBuild: false,
+    googlePay: {
+        elementId: 'sq-google-pay'
+      },
     inputStyles: [{
         fontSize: '16px',
         lineHeight: '24px',
@@ -112,6 +115,19 @@ const paymentForm = new SqPaymentForm({
         placeholder: 'Postal'
     },
     callbacks: {
+        methodsSupported: function(methods, unsupportedReason) {
+            var googlePayBtn = document.getElementById('sq-google-pay');
+
+            // Only show the button if Google Pay on the Web is enabled
+            if (methods.googlePay === true) {
+                googlePayBtn.style.display = 'inline-block';
+            } else {
+                console.log(unsupportedReason);
+            }
+        },
+        createPaymentRequest: function() {
+
+        },
         cardNonceResponseReceived: function (errors, nonce, cardData) {
             var formData = {};
             formData.name = $('#name-input').val();

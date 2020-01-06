@@ -50,7 +50,8 @@ const OrderSchema = new mongoose.Schema({
     zip: String,
     country: String,
     qty: String,
-    ts: String
+    ts: String,
+    filled: String
 });
 const OrderModel = new mongoose.model('OrderModel', OrderSchema);
 
@@ -176,7 +177,8 @@ app.post('/process-payment', async (req, res) => {
             zip: zip,
             country: country,
             qty: qty,
-            ts: Date.now()
+            ts: Date.now(),
+            filled: '0'
         });
         orderModel.save();
 

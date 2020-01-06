@@ -24,10 +24,11 @@ module.exports = function(body) {
             <div id="promo-bar" style="width: 100%; height: 30px; background-color: #000; color: white; display: flex; flex-direction: row; justify-content: center; align-items: center; letter-spacing: 3px; font-size: 0.8em;">
                 ${Config.promoText}
             </div>
+            <!--
             <div id="nav-bar" style="display: flex; flex-direction: row; align-items: center; justify-content: flex-end; border-bottom: 1px solid #ccc; background-color: white; width: 100%; height: 60px;">
                 <div style="padding: 5px; font-size: 2em; color: #333;">
                     <span class="fa fa-bars"></span>
-                </div>
+                </div>-->
             </div>
             ${body}
             <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; background-color: black; width: 100%; height: 80px; color: #efefef">

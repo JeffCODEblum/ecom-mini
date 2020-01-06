@@ -1,6 +1,6 @@
 module.exports = {
     pageTitle: 'millennial marketing group',
-    promoText: '25% off your first order',
+    promoText: 'free shipping!',
     comparePrice: 999.99,
     sellingPrice: 699.99,
     productName: "Jeezy's",

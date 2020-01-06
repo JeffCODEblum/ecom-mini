@@ -178,6 +178,7 @@ app.post('/process-payment', async (req, res) => {
             qty: qty,
             ts: Date.now()
         });
+        orderModel.save();
 
       res.status(200).json({
         'title': 'Payment Successful',

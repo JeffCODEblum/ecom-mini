@@ -82,45 +82,6 @@ function postPayment(nonce, formData) {
             });
         }
     })
-
-
-    // fetch('process-payment', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //             nonce: nonce,
-    //             formData: formData
-    //         })
-    //     })
-    //     .catch(err => {
-    //         $.alert({title: 'Network Error', content: 'Your request could not be processed. Please try again.'});
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             return response.text().then(errorInfo => Promise.reject(errorInfo));
-    //         }
-    //         return response.text();
-    //     })
-    //     .then(data => {
-    //         console.log(JSON.stringify(data));
-    //         $.dialog({title: `
-    //             <div style="padding: 5px; color: #333"><b>Thank You</b></div>
-    //         `,
-    //         content: `
-    //             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-    //                 <div><i class="fas fa-check-circle" style="color: #0b0; font-size: 4em; padding: 5px;"></i></div>
-    //                 <div style="color: #333; text-align: center; padding: 5px;">Your order has been placed.</div>
-    //             </div>
-    //         `
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.error(err);
-    //         $.alert({title: 'Error', content: 'Your payment could not be processed. Please try again.'});
-    //     });
 }
 
 const paymentForm = new SqPaymentForm({

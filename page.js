@@ -13,6 +13,7 @@ module.exports = function(body) {
             <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
             <link rel="stylesheet" href="./style.css"></style>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
             <script>
                 Config = {
                     sellingPrice: ${Config.sellingPrice}
@@ -34,6 +35,7 @@ module.exports = function(body) {
                 <div style="padding: 15px;"><a href="/privacy" style="color: #efefef; text-decoration: none;">Privacy</a></div>
             </div>
             <div style="padding-bottom: 10px; text-align: center; background-color: black; color: #efefef">Copyright 2019 all rights reserved</div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
             <script src="./index.js"></script>
         </body>
     </html>

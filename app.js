@@ -12,6 +12,7 @@ const cartPage = require('./cart.js');
 const page = require('./page.js');
 const termsPage = require('./terms.js');
 const squareConfig = require('./square-config.js');
+const config = require('./config.js');
 
 const app = express();
 app.use(express.static('public'))
@@ -38,6 +39,20 @@ const ReviewSchema = new mongoose.Schema({
     stars: Number
 });
 const ReviewModel = new mongoose.model('ReviewModel', ReviewSchema);
+
+const OrderSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    address1: String,
+    address2: String,
+    city: String,
+    state: String,
+    zip: String,
+    country: String,
+    qty: String,
+    ts: String
+});
+const OrderModel = new mongoose.model('OrderModel', OrderSchema);
 
 ReviewModel.find(function(err, docs) {
     if (err) console.log(err);
@@ -112,8 +127,27 @@ app.post('/post-comment', (req, res) => {
 });
 
 app.post('/process-payment', async (req, res) => {
-    const request_params = req.body;
- 
+    const request_params = { nonce: req.body.nonce };
+
+    const name = req.body.formData.name;
+    const email = req.body.formData.email;
+    const address1 = req.body.formData.address1;
+    const address2 = req.body.formData.address2;
+    const city = req.body.formData.city;
+    const state = req.body.formData.state;
+    const zip = req.body.formData.zip;
+    const country = req.body.formData.country;
+    const qty = req.body.formData.qty;
+
+    console.log(name, email, address1, address2, city, state, zip, country, qty);
+
+    if (!(name && email && address1 && city && state && zip && country && qty)) {
+        res.sendStatus(404);
+        return;
+    }
+
+    const charge = qty * config.sellingPrice * 100;
+
     // length of idempotency_key should be less than 45
     const idempotency_key = crypto.randomBytes(22).toString('hex');
  
@@ -122,14 +156,29 @@ app.post('/process-payment', async (req, res) => {
     const request_body = {
       source_id: request_params.nonce,
       amount_money: {
-        amount: 100, // $1.00 charge
+        amount: charge,
         currency: 'USD'
       },
       idempotency_key: idempotency_key
     };
  
     try {
-      const response = await payments_api.createPayment(request_body);
+        const response = await payments_api.createPayment(request_body);
+
+        console.log("pay response", response);
+        const orderModel = new OrderModel({
+            name: name,
+            email: email,
+            address1: address1,
+            address2: address2,
+            city: city,
+            state: state,
+            zip: zip,
+            country: country,
+            qty: qty,
+            ts: Date.now()
+        });
+
       res.status(200).json({
         'title': 'Payment Successful',
         'result': response

@@ -50,34 +50,77 @@ $("#comment-btn").click(function(e) {
 });
 
 
-function postPayment(nonce) {
-    fetch('process-payment', {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-                nonce: nonce
-            })
-        })
-        .catch(err => {
-            alert('Network error: ' + err);
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(errorInfo => Promise.reject(errorInfo));
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log(JSON.stringify(data));
-            alert('Payment complete successfully!\nCheck browser developer console for more details');
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Payment failed to complete!\nCheck browser developer console for more details');
-        });
+function postPayment(nonce, formData) {
+
+    $.dialog({
+        content: function() {
+            var self = this;
+            self.setContent('Processing...');
+            return $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: 'process-payment',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    nonce: nonce,
+                    formData: formData
+                }),
+                method: 'post'
+            }).done(function(res) {
+                self.setTitle('<div style="padding: 5px; color: #333"><b>Thank You</b></div>');
+                self.setContent(`
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div><i class="fas fa-check-circle" style="color: #0b0; font-size: 4em; padding: 5px;"></i></div>
+                    <div style="color: #333; text-align: center; padding: 5px;">Your order has been placed.</div>
+                </div>
+                `);
+            }).fail(function() {
+                self.setTitle('Uh oh...');
+                self.setContent('Your order could not be processed. Please check the payment information and try again.');
+            });
+        }
+    })
+
+
+    // fetch('process-payment', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //             nonce: nonce,
+    //             formData: formData
+    //         })
+    //     })
+    //     .catch(err => {
+    //         $.alert({title: 'Network Error', content: 'Your request could not be processed. Please try again.'});
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             return response.text().then(errorInfo => Promise.reject(errorInfo));
+    //         }
+    //         return response.text();
+    //     })
+    //     .then(data => {
+    //         console.log(JSON.stringify(data));
+    //         $.dialog({title: `
+    //             <div style="padding: 5px; color: #333"><b>Thank You</b></div>
+    //         `,
+    //         content: `
+    //             <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+    //                 <div><i class="fas fa-check-circle" style="color: #0b0; font-size: 4em; padding: 5px;"></i></div>
+    //                 <div style="color: #333; text-align: center; padding: 5px;">Your order has been placed.</div>
+    //             </div>
+    //         `
+    //         });
+    //     })
+    //     .catch(err => {
+    //         console.error(err);
+    //         $.alert({title: 'Error', content: 'Your payment could not be processed. Please try again.'});
+    //     });
 }
 
 const paymentForm = new SqPaymentForm({
@@ -109,22 +152,47 @@ const paymentForm = new SqPaymentForm({
     },
     callbacks: {
         cardNonceResponseReceived: function (errors, nonce, cardData) {
+            var formData = {};
+            formData.name = $('#name-input').val();
+            formData.email = $('#email-input').val();
+            formData.address1 = $('#address1-input').val();
+            formData.address2 = $('#address2-input').val();
+            formData.city = $('#city-input').val();
+            formData.state = $('#state-input').val();
+            formData.zip = $('#zip-input').val();
+            formData.country = $('#country-input').val();
+            formData.qty = $('#qty-input').val();
+
+            var valid = true;
+            formData.name || $('#name-input').addClass('error') && (valid = false);
+            formData.email || $('#email-input').addClass('error') && (valid = false);
+            formData.address1 || $('#address1-input').addClass('error') && (valid = false);
+            formData.city || $('#city-input').addClass('error') && (valid = false);
+            formData.state || $('#state-input').addClass('error') && (valid = false);
+            formData.zip || $('#zip-input').addClass('error') && (valid = false);
+            formData.country || $('#country-input').addClass('error') && (valid = false);
+            formData.qty || $('#qty-input').addClass('error') && (valid = false);
+
+            if (!valid) {
+                $.alert({title: 'Uh oh...', content: 'Please fill all the required fields.'});
+                return;
+            }
+            console.log("card nonce response recieved");
             if (errors) {
                 console.log(errors);
+                $.alert({title: 'Error', content: 'Your payment could not be processed. Please try again.'});
                 return;
             }
             else {
-                console.log(nonce, cardData);
-                postPayment(nonce);
+                postPayment(nonce, formData);
             }
         }
     }
 });
 
 function onGetCardNonce(event) {
-    // Don't submit the form until SqPaymentForm returns with a nonce
+    console.log("on get card nonce fired");
     event.preventDefault();
-    // Request a nonce from the SqPaymentForm object
     paymentForm.requestCardNonce();
 }
 
@@ -132,7 +200,19 @@ paymentForm.build();
 
 var total = Config.sellingPrice;
 $("#qty-input").on("change", function(e) {
+    e.preventDefault();
+    console.log("change fired");
     var qty = e.target.value;
+    if (qty <= 0) {
+        qty = 1;
+        $(e.target).val(1);
+    }
     total = (qty * Config.sellingPrice).toFixed(2);
     $("#total-display").text('' + total);
+    $(e.target).removeClass('error');
+});
+
+$(".shipping-input").on("change", function(e) {
+    console.log("change fired");
+    $(e.target).removeClass('error');
 });

@@ -18,14 +18,15 @@ module.exports = function() {
             </div>
 
             <div style="margin-top: 30px; font-size: 1.4em; color: #333; font-weight: bold;">Shipping Information</div>
-            <div style="margin-top: 10px;>
-                <input class="form-control infoPlaceholder shipping-input" placeholder="Full name"  />
-                <input class="form-control infoPlaceholder shipping-input" type="text" placeholder="Address Line 1" />
-                <input class="form-control infoPlaceholder shipping-input" type="text" placeholder="Address Line 2" />
-                <input class="form-control infoPlaceholder shipping-input" type="text" placeholder="city" />
-                <input class="form-control infoPlaceholder shipping-input" type="text" placeholder="State/Province/Region" />
-                <input class="form-control infoPlaceholder shipping-input" type="number" placeholder="ZIP/Postal Code" />
-                <input class="form-control infoPlaceholder shipping-input" type="text" placeholder="country" />
+            <div style="margin-top: 10px;">
+                <input id="name-input" class="form-control infoPlaceholder shipping-input" placeholder="Full name"  />
+                <input id="email-input" type="email" class="form-control infoPlaceholder shipping-input" placeholder="Email Address" />
+                <input id="address1-input" class="form-control infoPlaceholder shipping-input" type="text" placeholder="Address Line 1" />
+                <input id="address2-input" class="form-control infoPlaceholder shipping-input" type="text" placeholder="Address Line 2" />
+                <input id="city-input" class="form-control infoPlaceholder shipping-input" type="text" placeholder="city" />
+                <input id="state-input" class="form-control infoPlaceholder shipping-input" type="text" placeholder="State/Province/Region" />
+                <input id="zip-input" class="form-control infoPlaceholder shipping-input" type="number" placeholder="ZIP/Postal Code" />
+                <input id="country-input" class="form-control infoPlaceholder shipping-input" type="text" placeholder="country" />
             </div>
 
             <div style="margin-top: 30px; font-size: 1.4em; color: #333; font-weight: bold;">Payment Information</div>
@@ -36,7 +37,7 @@ module.exports = function() {
                 <div class="third" id="sq-postal-code"></div>
                 <button id="sq-creditcard" class="button-credit-card" style="background-color: #222; color: white;" onclick="onGetCardNonce(event)">Purchase</button>
             </div>
-            <div style="font-size: 1.6em; color: #333; margin-top: 30px; display: flex; flex-direction: row; justify-content: center; align-items:center;">
+            <div style="font-size: 2em; color: #333; margin-top: 30px; display: flex; flex-direction: row; justify-content: center; align-items:center;">
                 <div style="padding: 15px;"><i class="fab fa-cc-visa"></i></div>
                 <div style="padding: 15px;"><i class="fab fa-cc-mastercard"></i></div>
                 <div style="padding: 15px;"><i class="fab fa-cc-discover"></i></div>

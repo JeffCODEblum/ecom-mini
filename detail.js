@@ -74,7 +74,12 @@ module.exports = function(docs) {
                     </span>
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <a href="/cart"><button class="btn btn-default" style="width: 132px; border: 1px solid #333; border-radius: 0px; background-color: #222; color: #fff;">Buy Now</button></a>
+                    <a href="/cart"><button class="btn btn-default" style="width: 200px; border: 1px solid #333; border-radius: 0px; background-color: #white; color: #333;">Buy Now</button></a>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 10px;">
+                    <div style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 200px; background-color: black;">
+                        <a href="/cart"><button class="btn btn-default g-pay-link"></button></a>
+                    </div>
                 </div>
             </div>
             <div style="color: #333; margin-top: 30px; text-align: center">
@@ -84,7 +89,7 @@ module.exports = function(docs) {
                 Customer Reviews
             </div>
             <div id="leave-review-div" style="text-align: center; margin-top: 30px;">
-                <button id="leave-review-btn" class="btn btn-default" style="width: 132px; border: 1px solid #333; border-radius: 0px; color: #222;">Leave a Review</button>
+                <button id="leave-review-btn" class="btn btn-default" style="width: 200px; border: 1px solid #333; border-radius: 0px; color: #222;">Leave a Review</button>
             </div>
             <div id="review-form-div" style="display: none; margin-top: 30px;">
                 <span id="star-btn-1" class="star-btn fa fa-star checked" data-index="1"></span>
@@ -107,7 +112,7 @@ module.exports = function(docs) {
             </div>
             <div id="review-success-div" style="display: none; margin-top: 30px;">
                 <div style="display: flex; justify-content: center; align-items: center;">
-                    <div style="width: 132px; padding: 10px; background-color: #22a022; color: white; text-align: center; font-weight: bold; font-size: 1.2em">Review Submitted</div>
+                    <div style="width: 200px; padding: 10px; background-color: #22a022; color: white; text-align: center; font-weight: bold; font-size: 1.2em">Review Submitted</div>
                 </div>
             </div>
             <div style="margin-top: 30px; margin-bottom: 30px;">

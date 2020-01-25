@@ -203,6 +203,10 @@ button:hover {
     border-radius: 0px;
     outline: 0;
   }
+
+  .g-pay-link:hover {
+    background-color: black;
+  }
   
   
   .sq-apple-pay {

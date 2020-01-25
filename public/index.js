@@ -86,11 +86,13 @@ function postPayment(nonce, formData) {
 
 const paymentForm = new SqPaymentForm({
     applicationId: "sandbox-sq0idb-E12Nhkfh49gLtlSnpfuODw",
+    locationId: 'US',
     inputClass: 'sq-input',
     autoBuild: false,
     googlePay: {
-        elementId: 'sq-google-pay'
-      },
+        elementId: 'sq-google-pay',
+        wallet: 'foo'
+    },
     inputStyles: [{
         fontSize: '16px',
         lineHeight: '24px',
@@ -116,13 +118,15 @@ const paymentForm = new SqPaymentForm({
     },
     callbacks: {
         methodsSupported: function(methods, unsupportedReason) {
+            console.log(methods);
+
             var googlePayBtn = document.getElementById('sq-google-pay');
 
             // Only show the button if Google Pay on the Web is enabled
             if (methods.googlePay === true) {
-                googlePayBtn.style.display = 'inline-block';
+                //googlePayBtn.style.display = 'inline-block';
             } else {
-                console.log(unsupportedReason);
+                console.log('UNSUPPORTED REASON', unsupportedReason);
             }
         },
         createPaymentRequest: function() {

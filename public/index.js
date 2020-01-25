@@ -124,7 +124,7 @@ const paymentForm = new SqPaymentForm({
 
             // Only show the button if Google Pay on the Web is enabled
             if (methods.googlePay === true) {
-                //googlePayBtn.style.display = 'inline-block';
+                googlePayBtn.style.display = 'inline-block';
             } else {
                 console.log('UNSUPPORTED REASON', unsupportedReason);
             }

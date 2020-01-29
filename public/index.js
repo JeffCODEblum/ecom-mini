@@ -89,10 +89,9 @@ const paymentForm = new SqPaymentForm({
     locationId: 'US',
     inputClass: 'sq-input',
     autoBuild: false,
-    googlePay: {
-        elementId: 'sq-google-pay',
-        wallet: 'foo'
-    },
+    // googlePay: {
+    //     elementId: 'sq-google-pay',
+    // },
     inputStyles: [{
         fontSize: '16px',
         lineHeight: '24px',
@@ -129,9 +128,59 @@ const paymentForm = new SqPaymentForm({
                 console.log('UNSUPPORTED REASON', unsupportedReason);
             }
         },
-        createPaymentRequest: function() {
-
-        },
+        // createPaymentRequest: function() {
+        //     console.log('Creating google payment request');
+        //     var paymentRequestJson = {
+        //         requestShippingAddress: true,
+        //         requestBillingInfo: true,
+        //         shippingContact: {
+        //           familyName: "CUSTOMER LAST NAME",
+        //           givenName: "CUSTOMER FIRST NAME",
+        //           email: "mycustomer@example.com",
+        //           country: "USA",
+        //           region: "CA",
+        //           city: "San Francisco",
+        //           addressLines: [
+        //             "1455 Market St #600"
+        //           ],
+        //           postalCode: "94103",
+        //           phone:"14255551212"
+        //         },
+        //         currencyCode: "USD",
+        //         countryCode: "US",
+        //         total: {
+        //           label: "MERCHANT NAME",
+        //           amount: "85.00",
+        //           pending: false
+        //         },
+        //         lineItems: [
+        //           {
+        //             label: "Subtotal",
+        //             amount: "60.00",
+        //             pending: false
+        //           },
+        //           {
+        //             label: "Shipping",
+        //             amount: "19.50",
+        //             pending: true
+        //           },
+        //           {
+        //             label: "Tax",
+        //             amount: "5.50",
+        //             pending: false
+        //           }
+        //         ],
+        //         shippingOptions: [
+        //           {
+        //             id: "1",
+        //             label: "SHIPPING LABEL",
+        //             amount: "SHIPPING COST"
+        //           }
+        //        ]
+        //       };
+        
+        //       return paymentRequestJson;
+        // },
         cardNonceResponseReceived: function (errors, nonce, cardData) {
             var formData = {};
             formData.name = $('#name-input').val();

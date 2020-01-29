@@ -35,8 +35,8 @@ module.exports = function() {
                 <div class="third" id="sq-expiration-date"></div>
                 <div class="third" id="sq-cvv"></div>
                 <div class="third" id="sq-postal-code"></div>
-                <button id="sq-creditcard" class="button-credit-card" style="margin-bottom: 10px; background-color: #white; color: black; border: 1px solid #222; height: 40px;" onclick="onGetCardNonce(event)">Pay with Card</button>
-                <button id="sq-google-pay" class="button-google-pay"></button>
+                <button id="sq-creditcard" class="button-credit-card" style="margin-bottom: 10px; background-color: #333; color: white; height: 40px;" onclick="onGetCardNonce(event)">Pay with Card</button>
+                <!--<button id="sq-google-pay" class="button-google-pay"></button>-->
             </div>
             <div style="font-size: 2em; color: #333; margin-top: 30px; display: flex; flex-direction: row; justify-content: center; align-items:center;">
                 <div style="padding: 15px;"><i class="fab fa-cc-visa"></i></div>

@@ -21,9 +21,9 @@ module.exports = function(docs) {
             }
             reviewMarkup += `
                 <hr>
-                <div><span style="color: #333; font-size: 1.2em;">${doc.name}</span> <span style="font-size: 0.8em">on ${timestamp}</span></div>
+                <div><span style="color: #222; font-size: 1.2em;">${doc.name}</span> <span style="font-size: 0.8em">on ${timestamp}</span></div>
                 ${starMarkup}
-                <div style="color: #333;">${doc.comment}</div>
+                <div style="color: #222;">${doc.comment}</div>
             `;
         }
     }
@@ -59,13 +59,13 @@ module.exports = function(docs) {
                     <img class="img-thmb" style="border: 1px solid #ccc; margin-right: 10px; width: 65px; height: 65px;" src="./img2.png" data-src="./img2.png" />
                 </div>
             </div>
-            <div style="margin-top: 10px; color: #333;">
+            <div style="margin-top: 10px; color: #222;">
                 ${starMarkup}
                 <span style="font-size: 0.8em;">(${starAverage} / 5 based on ${reviewCount} reviews)</span>
             </div>
-            <div style="font-size: 1.4em; color: #333; font-weight: bold;">${Config.productName}</div>
+            <div style="font-size: 1.4em; color: #222; font-weight: bold;">${Config.productName}</div>
             <div style="display: flex; flex-direction: column; margin-top: 20px; justify-content: center;">
-                <div style="text-align: center; color: #333;">
+                <div style="text-align: center; color: #222;">
                     <span style="font-size: 1em">
                         <s>$${Config.comparePrice}</s>
                     </span>
@@ -74,17 +74,17 @@ module.exports = function(docs) {
                     </span>
                 </div>
                 <div style="display: flex; justify-content: center; margin-top: 10px;">
-                    <a href="/cart"><button class="btn btn-default" style="width: 200px; border-radius: 0px; background-color: #333; color: #fff;">Buy Now</button></a>
+                    <a href="/cart"><button class="btn btn-default" style="width: 200px; border-radius: 0px; background-color: #222; color: #fff;">Buy Now</button></a>
                 </div>
             </div>
-            <div style="color: #333; margin-top: 30px; text-align: center">
+            <div style="color: #222; margin-top: 30px; text-align: center">
                 ${Config.productDescription}
             </div>
-            <div style="color: #333; margin-top: 30px; font-weight: bold; font-size: 1.4em;">
+            <div style="color: #222; margin-top: 30px; font-weight: bold; font-size: 1.4em;">
                 Customer Reviews
             </div>
             <div id="leave-review-div" style="text-align: center; margin-top: 30px;">
-                <button id="leave-review-btn" class="btn btn-default" style="width: 200px; border: 1px solid #333; border-radius: 0px; color: #222;">Leave a Review</button>
+                <button id="leave-review-btn" class="btn btn-default" style="width: 200px; border: 1px solid #222; border-radius: 0px; color: #222;">Leave a Review</button>
             </div>
             <div id="review-form-div" style="display: none; margin-top: 30px;">
                 <span id="star-btn-1" class="star-btn fa fa-star checked" data-index="1"></span>
@@ -93,16 +93,16 @@ module.exports = function(docs) {
                 <span id="star-btn-4" class="star-btn fa fa-star checked" data-index="4"></span>
                 <span id="star-btn-5" class="star-btn fa fa-star checked" data-index="5"></span>
                 <div class="form-group" style="margin-top: 10px;">
-                    <input id="email-input" class="form-control" maxlength="48" style="border-radius: 0px; border: 1px solid #333;" placeholder="Email" />
+                    <input id="email-input" class="form-control" maxlength="48" style="border-radius: 0px; border: 1px solid #222;" placeholder="Email" />
                 </div>
                 <div class="form-group">
-                    <input id="name-input" class="form-control" maxlength="16" style="border-radius: 0px; border: 1px solid #333;" placeholder="Name" />
+                    <input id="name-input" class="form-control" maxlength="16" style="border-radius: 0px; border: 1px solid #222;" placeholder="Name" />
                 </div>
                 <div class="form-group">
-                    <textarea id="comment-input" maxlength="256" class="form-control" style="border-radius: 0px; border: 1px solid #333;" rows="6" placeholder="Write review here"></textarea>
+                    <textarea id="comment-input" maxlength="256" class="form-control" style="border-radius: 0px; border: 1px solid #222;" rows="6" placeholder="Write review here"></textarea>
                 </div>
                 <div class="form-group text-right">
-                    <button id="comment-btn" class="btn btn-default" style="border: 1px solid #333; border-radius: 0px; color: #333;">Post</button>
+                    <button id="comment-btn" class="btn btn-default" style="border: 1px solid #222; border-radius: 0px; color: #222;">Post</button>
                 </div>
             </div>
             <div id="review-success-div" style="display: none; margin-top: 30px;">

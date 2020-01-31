@@ -142,12 +142,15 @@ app.post('/process-payment', async (req, res) => {
 
     console.log(name, email, address1, address2, city, state, zip, country, qty);
 
-    if (!(name && email && address1 && city && state && zip && country && qty > 0)) {
+    if (!(name && email && address1 && city && state && zip && country && qty)) {
         res.sendStatus(404);
         return;
     }
 
-    const charge = qty * config.sellingPrice * 100;
+    const charge = Math.floor(qty * (config.sellingPrice.toFixed(2) * 100));
+    console.log('qty', qty);
+    console.log('price', config.sellingPrice);
+    console.log('charge', charge);
 
     // length of idempotency_key should be less than 45
     const idempotency_key = crypto.randomBytes(22).toString('hex');
@@ -187,6 +190,7 @@ app.post('/process-payment', async (req, res) => {
         'result': response
       });
     } catch(error) {
+        console.log(error);
       res.status(500).json({
         'title': 'Payment Failure',
         'result': error.response.text

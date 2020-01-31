@@ -142,7 +142,7 @@ app.post('/process-payment', async (req, res) => {
 
     console.log(name, email, address1, address2, city, state, zip, country, qty);
 
-    if (!(name && email && address1 && city && state && zip && country && qty)) {
+    if (!(name && email && address1 && city && state && zip && country && qty > 0)) {
         res.sendStatus(404);
         return;
     }

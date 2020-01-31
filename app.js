@@ -148,9 +148,6 @@ app.post('/process-payment', async (req, res) => {
     }
 
     const charge = Math.floor(qty * (config.sellingPrice.toFixed(2) * 100));
-    console.log('qty', qty);
-    console.log('price', config.sellingPrice);
-    console.log('charge', charge);
 
     // length of idempotency_key should be less than 45
     const idempotency_key = crypto.randomBytes(22).toString('hex');
